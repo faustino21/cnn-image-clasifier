@@ -16,6 +16,16 @@ MODEL_INPUT_SHAPE: tuple = (None, 32, 32, 3)  # (batch, height, width, channels)
 MODEL_INPUT_DTYPE: str = "float32"
 MODEL_OUTPUT_SIZE: int = 10  # one probability per CIFAR-10 class
 
+
+# Prediction confidence
+CONFIDENCE_THRESHOLD: float = 0.50
+LOW_CONFIDENCE_MESSAGE: str = (
+    "Prediksi kurang meyakinkan. Gambar ini mungkin tidak termasuk dalam 10 "
+    "kategori yang dikenali model, atau model kesulitan mengklasifikasikannya. "
+    "Silakan unggah gambar lain yang lebih jelas dan sesuai dengan kategori "
+    "yang tersedia."
+)
+
 # ---------------------------------------------------------------------------
 # Image preprocessing
 # ---------------------------------------------------------------------------
