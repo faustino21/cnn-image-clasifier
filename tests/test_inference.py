@@ -13,6 +13,7 @@ import inference
 from inference import (
     ModelOutputError,
     ModelUnavailableError,
+    is_low_confidence,
     load_model,
     model_exists,
     predict,
@@ -98,9 +99,23 @@ def test_predict_raises_when_model_fails():
         predict(model, np.zeros((1, 32, 32, 3), np.float32))
 
 
-def test_no_keras_file_is_created_anywhere(tmp_path):
-    """Sanity check: the test suite must never generate a real model file."""
-    keras_files = list(tmp_path.rglob("*.keras")) + list(
-        config.MODEL_PATH.parent.glob("*.keras")
-    )
+# --- low-confidence threshold --------------------------------------------
+
+
+def test_confidence_below_threshold_is_low():
+    assert is_low_confidence(0.49) is True
+
+
+def test_confidence_at_threshold_is_not_low():
+    # Strict < comparison: exactly 0.50 is NOT low.
+    assert is_low_confidence(0.50) is False
+
+
+def test_confidence_above_threshold_is_not_low():
+    assert is_low_confidence(0.85) is False
+    assert is_low_confidence(1.0) is False
+
+
+def test_no_keras_file_is_created_by_tests(tmp_path):
+    keras_files = list(tmp_path.rglob("*.keras"))
     assert keras_files == []

@@ -32,6 +32,15 @@ def model_exists(model_path: Path | str = config.MODEL_PATH) -> bool:
     return Path(model_path).is_file()
 
 
+def is_low_confidence(confidence: float) -> bool:
+    """Return True when ``confidence`` is below the configured threshold.
+
+    ``confidence`` must be a probability in [0.0, 1.0]. The comparison is strict
+    (`<`), so exactly the threshold value (0.50) is NOT treated as low.
+    """
+    return confidence < config.CONFIDENCE_THRESHOLD
+
+
 def load_model(model_path: Path | str = config.MODEL_PATH) -> Any:
     """Load the trained Keras model from ``model_path``.
 

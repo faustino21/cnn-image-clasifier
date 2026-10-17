@@ -141,8 +141,17 @@ def _run_prediction(model, uploaded) -> None:
 
 
 def _render_results(results: dict, uploaded) -> None:
-    """Display confidence, probabilities, top-3 and timing."""
+    """Display confidence, probabilities, top-3 and timing.
+
+    When the top-class confidence is below the configured threshold, a warning
+    is shown explaining that the result is uncertain, but the prediction and
+    its confidence are still displayed normally.
+    """
     st.subheader("Prediction results")
+
+    if inference.is_low_confidence(results["confidence"]):
+        st.warning(config.LOW_CONFIDENCE_MESSAGE)
+
     col1, col2 = st.columns(2)
     col1.metric(
         "Predicted class",
