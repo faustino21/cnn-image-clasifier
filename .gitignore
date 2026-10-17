@@ -1,0 +1,33 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Test / build artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Jupyter notebooks (train/dev scratch)
+.ipynb_checkpoints/
+
+# Model weights / generated model files — intentionally NOT committed.
+# The trained model (models/cnn_optimized.keras) is added locally after training.
+models/*.keras
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Streamlit runtime
+.streamlit/secrets.toml
